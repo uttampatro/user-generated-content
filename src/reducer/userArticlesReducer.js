@@ -2,9 +2,9 @@ const initialLoginState = {
     articles: [],
 };
 
-function articlesReducer(state = initialLoginState, action) {
+function userArticlesReducer(state = initialLoginState, action) {
     switch (action.type) {
-        case 'GETTING_ALL_ARTICLES':
+        case 'GETTING_USERS_ARTICLES':
             return {
                 ...state,
                 articles: action.value,
@@ -14,4 +14,4 @@ function articlesReducer(state = initialLoginState, action) {
     }
 }
 
-export default articlesReducer;
+export default userArticlesReducer;

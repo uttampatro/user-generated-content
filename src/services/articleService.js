@@ -1,6 +1,5 @@
 import * as config from '../config/api';
 import axios from './axios';
-
 const getAllArticles = async ({ page, limit }) => {
     try {
         const response = await axios.get(
@@ -12,7 +11,7 @@ const getAllArticles = async ({ page, limit }) => {
     }
 };
 
-const getArticle = async (id) => {
+const getArticle = async id => {
     try {
         const response = await axios.get(
             `${config.apiConfig.baseUrl}/v1/fetchArticle/${id}`
@@ -24,4 +23,15 @@ const getArticle = async (id) => {
     }
 };
 
-export { getAllArticles, getArticle };
+const getUsersArticles = async (id, { page, limit }) => {
+    try {
+        const response = await axios.get(
+            `${config.apiConfig.baseUrl}/v1/articlesByWriter/${id}?page=${page}&limit=${limit}`
+        );
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export { getAllArticles, getArticle, getUsersArticles };

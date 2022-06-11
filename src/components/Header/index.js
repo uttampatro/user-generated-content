@@ -6,7 +6,7 @@ import './style.css';
 function Header() {
     const User = localStorage.getItem('accessToken');
     const user = User ? JSON.parse(User) : undefined;
-    console.log(user.id);
+    // console.log(user.id);
 
     const navigate = useNavigate();
 
