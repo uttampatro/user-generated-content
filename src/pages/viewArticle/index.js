@@ -24,7 +24,7 @@ function ViewArticle(props) {
         fetchArticle(id);
     }, []);
 
-    console.log(article);
+    // console.log(article);
 
     return (
         <div className="viewArticle">

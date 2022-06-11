@@ -5,10 +5,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import './style.css';
 import { TablePagination, Typography } from '@mui/material';
 import { connect } from 'react-redux';
-import { getUsersArticles } from '../../services/articleService';
-import { Link, useParams } from 'react-router-dom';
+import { deleteArticle, getUsersArticles } from '../../services/articleService';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 function Articles(props) {
+    const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(0);
     const [articlePerPage, setArticlePerPage] = useState(5);
     const [totalCount, setTotalCount] = useState(0);
@@ -37,6 +38,20 @@ function Articles(props) {
             console.log(error);
         }
     };
+
+    const deletingArticle = async id => {
+        try {
+            const data = await deleteArticle(id);
+            if (data) {
+                alert('Deleted student successfully');
+            }
+            window.location = window.location;
+            navigate(`/usersArticles`);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     // console.log(articles);
 
     const { id } = useParams();
@@ -94,7 +109,6 @@ function Articles(props) {
                                                 <Typography
                                                     style={{
                                                         paddingTop: '10px',
-                                                        // paddingRight: '150px',
                                                     }}
                                                 >
                                                     {article.description
@@ -115,6 +129,9 @@ function Articles(props) {
                                     >
                                         <EditIcon style={{ padding: '20px' }} />
                                         <DeleteIcon
+                                            onClick={() =>
+                                                deletingArticle(article._id)
+                                            }
                                             style={{ padding: '20px' }}
                                         />
                                     </div>
