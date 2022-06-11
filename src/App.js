@@ -6,7 +6,6 @@ import Publish from './pages/publishArticle';
 import ViewArticle from './pages/viewArticle';
 import Articles from './pages/userArticles';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 function App() {
     const userExists = localStorage.getItem('accessToken');
@@ -24,6 +23,8 @@ function App() {
                         <>
                             <Route path="/home" element={<Home />} />
                             <Route path="/viewArticle/:id" element={<ViewArticle />} />
+                            <Route path="/usersArticles/:id" element={<Articles />} />
+                            <Route path="/writeArticle" element={<Publish />} />
 
                         </>
                     )}

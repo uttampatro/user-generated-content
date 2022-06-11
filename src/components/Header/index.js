@@ -1,11 +1,12 @@
 import React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../services/authService';
 import './style.css';
 
 function Header() {
     const User = localStorage.getItem('accessToken');
     const user = User ? JSON.parse(User) : undefined;
+    console.log(user.id);
 
     const navigate = useNavigate();
 
@@ -13,7 +14,31 @@ function Header() {
         try {
             await logout();
             navigate('/');
-            window.location = window.location
+            window.location = window.location;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const goToUserArticles = async () => {
+        try {
+            navigate(`/usersArticles/${user.id}`);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const goToHome = async () => {
+        try {
+            navigate(`/home`);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const writeArticle = async () => {
+        try {
+            navigate(`/writeArticle`);
         } catch (error) {
             console.log(error);
         }
@@ -23,13 +48,20 @@ function Header() {
         <div className="headerHome">
             <div className="headerBody">
                 <h3>
-                    <span>FATMUG</span>｜Greetings! {user.email}
+                    <span style={{ cursor: 'pointer' }} onClick={goToHome}>
+                        FATMUG
+                    </span>
+                    ｜Greetings! {user.email}
                 </h3>
             </div>
             <div>
                 <div className="headerButton">
-                    <button className="button1">Write</button>
-                    <button className="button2">Your Article</button>
+                    <button onClick={writeArticle} className="button1">
+                        Write
+                    </button>
+                    <button onClick={goToUserArticles} className="button2">
+                        Your Article
+                    </button>
                     <button
                         style={{
                             backgroundColor: 'white',
