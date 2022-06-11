@@ -1,0 +1,13 @@
+.homeIndex{
+    padding: 20px;
+}
+
+.home_footer {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 150px;
+  }
+
+

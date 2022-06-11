@@ -1,0 +1,12 @@
+.viewArticle {
+  padding: 20px;
+}
+.viewArticleBody {
+  display: block;
+  flex-direction: column;
+}
+
+.viewArticleBody_content {
+  display: flex;
+  justify-content: space-around;
+}

@@ -1,0 +1,20 @@
+.articles {
+  padding: 20px;
+  text-align: center;
+}
+
+.articlesBody {
+  padding-top: 5px;
+}
+
+.articlesBodyContent {
+  display: flex;
+  justify-content: space-around;
+}
+.articles_footer {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}

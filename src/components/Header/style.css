@@ -1,0 +1,44 @@
+.headerHome {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.headerBody > h3 {
+  font-size: medium;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+.headerBody > h3 > span {
+  font-size: large;
+  font-weight: 900;
+}
+
+.headerButton {
+  display: flex;
+  justify-content: space-between;
+}
+.button1 {
+  margin-right: 10px;
+  color: white;
+  background-color: gray;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button1:hover {
+  background-color: white;
+  color: black;
+}
+
+.button2 {
+  border-radius: 4px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.button2:hover {
+  color: white;
+  background-color: gray;
+}

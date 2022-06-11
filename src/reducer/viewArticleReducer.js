@@ -1,0 +1,27 @@
+const initialLoginState = {
+    article: {
+        _id: '',
+        title: '',
+        description: '',
+        imageUrl: '',
+        createdBy: {
+            _id: null,
+            email: '',
+        },
+        createdAt: null,
+    },
+}
+
+function viewArticleReducer(state = initialLoginState, action) {
+    switch (action.type) {
+        case 'GETTING_ARTICLE_DETAILS':
+            return {
+                ...state,
+                article: action.value
+            };
+        default:
+            return state;
+    }
+}
+
+export default viewArticleReducer
