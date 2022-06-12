@@ -83,14 +83,22 @@ function Articles(props) {
                                             paddingLeft: '200px',
                                         }}
                                     >
-                                        <img
+                                        <Link
+                                            to={`/viewArticle/${article._id}`}
                                             style={{
-                                                paddingTop: '15px',
-                                                width: '150px',
-                                                height: '100px',
+                                                textDecoration: 'none',
+                                                color: 'black',
                                             }}
-                                            src={article.imageUrl}
-                                        />
+                                        >
+                                            <img
+                                                style={{
+                                                    paddingTop: '15px',
+                                                    width: '150px',
+                                                    height: '100px',
+                                                }}
+                                                src={article.imageUrl}
+                                            />
+                                        </Link>
                                         <div
                                             style={{
                                                 paddingLeft: '20px',
@@ -98,7 +106,6 @@ function Articles(props) {
                                                 textAlign: 'justify',
                                             }}
                                         >
-                                            <h3>{article.title}</h3>
                                             <Link
                                                 to={`/viewArticle/${article._id}`}
                                                 style={{
@@ -106,6 +113,8 @@ function Articles(props) {
                                                     color: 'black',
                                                 }}
                                             >
+                                                <h3>{article.title}</h3>
+
                                                 <Typography
                                                     style={{
                                                         paddingTop: '10px',

@@ -62,64 +62,6 @@ function Home(props) {
                         {articles.map(article => {
                             return (
                                 <div>
-                                    <img
-                                        style={{
-                                            // display: 'block',
-                                            paddingTop: '20px',
-                                            width: '100%',
-                                            height: '250px',
-                                        }}
-                                        src={article.imageUrl}
-                                    />
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            paddingTop: '15px',
-                                        }}
-                                    >
-                                        <Avatar
-                                            sx={{
-                                                backgroundColor: 'white',
-                                                border: '2px solid lightgray',
-                                                color: 'gray',
-                                                fontWeight: 600,
-                                                fontSize: 'smaller',
-
-                                                width: 25,
-                                                height: 25,
-                                                marginTop: '2px',
-                                            }}
-                                        >
-                                            i
-                                        </Avatar>
-                                        <p
-                                            style={{
-                                                padding: '8px',
-                                                fontWeight: 'bold',
-                                                fontSize: 'small',
-                                                fontFamily: 'sans-serif',
-                                            }}
-                                        >
-                                            {article.createdBy.email}{' '}
-                                            <span
-                                                style={{
-                                                    fontWeight: 'lighter',
-                                                    fontStyle: 'italic',
-                                                }}
-                                            >
-                                                {/* in{' '} */}
-                                            </span>
-                                            {/* Better Programming */}
-                                        </p>
-                                    </div>
-                                    <Typography
-                                        style={{
-                                            fontWeight: 600,
-                                            marginTop: '10px',
-                                        }}
-                                    >
-                                        {article.title}
-                                    </Typography>
                                     <Link
                                         to={`/viewArticle/${article._id}`}
                                         style={{
@@ -127,6 +69,65 @@ function Home(props) {
                                             color: 'black',
                                         }}
                                     >
+                                        <img
+                                            style={{
+                                                // display: 'block',
+                                                paddingTop: '20px',
+                                                width: '100%',
+                                                height: '250px',
+                                            }}
+                                            src={article.imageUrl}
+                                        />
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                paddingTop: '15px',
+                                            }}
+                                        >
+                                            <Avatar
+                                                sx={{
+                                                    backgroundColor: 'white',
+                                                    border: '2px solid lightgray',
+                                                    color: 'gray',
+                                                    fontWeight: 600,
+                                                    fontSize: 'smaller',
+
+                                                    width: 25,
+                                                    height: 25,
+                                                    marginTop: '2px',
+                                                }}
+                                            >
+                                                i
+                                            </Avatar>
+                                            <p
+                                                style={{
+                                                    padding: '8px',
+                                                    fontWeight: 'bold',
+                                                    fontSize: 'small',
+                                                    fontFamily: 'sans-serif',
+                                                }}
+                                            >
+                                                {article.createdBy.email}{' '}
+                                                <span
+                                                    style={{
+                                                        fontWeight: 'lighter',
+                                                        fontStyle: 'italic',
+                                                    }}
+                                                >
+                                                    {/* in{' '} */}
+                                                </span>
+                                                {/* Better Programming */}
+                                            </p>
+                                        </div>
+                                        <Typography
+                                            style={{
+                                                fontWeight: 600,
+                                                marginTop: '10px',
+                                            }}
+                                        >
+                                            {article.title}
+                                        </Typography>
+
                                         <Typography
                                             style={{
                                                 paddingRight: '0%',
@@ -139,21 +140,14 @@ function Home(props) {
                                                 .split('')
                                                 .slice(0, 300)}
                                         </Typography>
-                                    </Link>
-                                    <p
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'flex-end',
-                                            cursor: 'pointer',
-                                            paddingTop: '5px',
-                                            fontWeight: 600,
-                                        }}
-                                    >
-                                        <Link
-                                            to={`/viewArticle/${article._id}`}
+                                        <p
                                             style={{
-                                                textDecoration: 'none',
-                                                color: 'black',
+                                                display: 'flex',
+                                                justifyContent: 'flex-end',
+                                                cursor: 'pointer',
+                                                paddingTop: '5px',
+                                                paddingBottom: '10px',
+                                                fontWeight: 600,
                                             }}
                                         >
                                             Read More{' '}
@@ -166,8 +160,8 @@ function Home(props) {
                                                 ★
                                             </span>
                                             {/* 7 min read */}
-                                        </Link>
-                                    </p>
+                                        </p>
+                                    </Link>
                                 </div>
                             );
                         })}
