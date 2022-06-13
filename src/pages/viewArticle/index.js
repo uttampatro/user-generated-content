@@ -44,18 +44,17 @@ function ViewArticle(props) {
                 <div className="viewArticleBody_content">
                     <Typography
                         style={{
-                            marginLeft: '100px',
-                            marginBottom: '10px',
-                            marginTop: '10px',
+                            marginLeft: '110px',
+                            marginBottom: '5px',
+                            fontWeight: 'bold'
                         }}
                     >
                         {article.title}
                     </Typography>
                     <p
                         style={{
-                            marginRight: '100px',
-                            marginBottom: '10px',
-                            marginTop: '12px',
+                            marginRight: '110px',
+                            marginBottom: '5px',
                             fontStyle: 'italic',
                             fontFamily: 'sans-serif',
                             fontWeight: 'lighter',
@@ -74,7 +73,7 @@ function ViewArticle(props) {
                     </p>
                 </div>
 
-                <hr style={{ margin: '10px 290px' }} />
+                <hr style={{ margin: '10px 300px' }} />
                 <Typography
                     style={{
                         paddingLeft: '22%',

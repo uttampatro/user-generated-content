@@ -1,5 +1,6 @@
 import * as config from '../config/api';
 import axios from './axios';
+
 const getAllArticles = async ({ page, limit }) => {
     try {
         const accessToken = localStorage.getItem('accessToken');
@@ -55,11 +56,61 @@ const deleteArticle = async id => {
             `${config.apiConfig.baseUrl}/v1/deleteArticle/${id}`,
             { headers: { Authorization: accessToken } }
         );
-        console.log(response)
+        // console.log(response);
         return response.data;
     } catch (error) {
         console.log(error);
     }
 };
 
-export { getAllArticles, getArticle, getUsersArticles, deleteArticle };
+const createArticle = async ({ userId, title, description, imageUrl }) => {
+    try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) throw new Error('Access token does not exists');
+
+        const response = await axios.post(
+            `${config.apiConfig.baseUrl}/v1/createArticle`,
+            {
+                title: title,
+                description: description,
+                imageUrl: imageUrl,
+                userId: userId,
+            },
+            { headers: { Authorization: accessToken } }
+        );
+        // console.log(response)
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+};
+
+const generateSignedUrl = async fileName => {
+    try {
+        const response = await axios.get(
+            `${config.apiConfig.baseUrl}/v1/sign-url?filename=${fileName}`
+        );
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const uploadFile = async (signedUrl, file) => {
+    try {
+        await axios.put(signedUrl, file);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export {
+    getAllArticles,
+    getArticle,
+    getUsersArticles,
+    deleteArticle,
+    createArticle,
+    generateSignedUrl,
+    uploadFile,
+};
