@@ -1,5 +1,6 @@
 const initialLoginState = {
     articles: [],
+    randomArticles: [],
 };
 
 function articlesReducer(state = initialLoginState, action) {
@@ -8,6 +9,11 @@ function articlesReducer(state = initialLoginState, action) {
             return {
                 ...state,
                 articles: action.value,
+            };
+        case 'GETTING_RANDOM_ARTICLES':
+            return {
+                ...state,
+                randomArticles: action.value,
             };
         default:
             return state;

@@ -105,6 +105,20 @@ const uploadFile = async (signedUrl, file) => {
     }
 };
 
+const getRandomArticles = async () => {
+    try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) throw new Error('Access token does not exists');
+
+        const response = await axios.get(
+            `${config.apiConfig.baseUrl}/v1/fetchRandomArticles`,
+            { headers: { Authorization: accessToken } }
+        );
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
 export {
     getAllArticles,
     getArticle,
@@ -113,4 +127,5 @@ export {
     createArticle,
     generateSignedUrl,
     uploadFile,
+    getRandomArticles
 };
