@@ -4,7 +4,7 @@ const localApiConfig = {
     baseUrl: 'http://localhost:5000',
 };
 const prodApiConfig = {
-    baseUrl: 'https://assignment-06-service.herokuapp.com',
+    baseUrl: 'https://user-generated-content-service.herokuapp.com/',
 };
 // console.log(process.env.REACT_APP_ENVIRONMENT);
 
