@@ -17,7 +17,7 @@ function Publish(props) {
     const user = User ? JSON.parse(User) : undefined;
     const userId = user.id;
 
-    console.log(props)
+    // console.log(props)
 
     const [isCreatingArticle, setIsCreatingArticle] = useState(false);
 
