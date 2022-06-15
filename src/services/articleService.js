@@ -119,6 +119,23 @@ const getRandomArticles = async () => {
         console.log(error);
     }
 };
+
+const updateArticle = async (_id, { title, description, imageUrl }) => {
+    try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) throw new Error('Access token does not exists');
+
+        const response = await axios.put(
+            `${config.apiConfig.baseUrl}/v1/updateArticle/${_id}`,
+            { title, description, imageUrl },
+            { headers: { Authorization: accessToken } }
+        );
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export {
     getAllArticles,
     getArticle,
@@ -127,5 +144,6 @@ export {
     createArticle,
     generateSignedUrl,
     uploadFile,
-    getRandomArticles
+    getRandomArticles,
+    updateArticle,
 };

@@ -1,9 +1,9 @@
-const initialLoginState = {
+const initialState = {
     articles: [],
     randomArticles: [],
 };
 
-function articlesReducer(state = initialLoginState, action) {
+function articlesReducer(state = initialState, action) {
     switch (action.type) {
         case 'GETTING_ALL_ARTICLES':
             return {

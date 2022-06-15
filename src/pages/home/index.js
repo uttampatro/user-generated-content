@@ -41,8 +41,8 @@ function Home(props) {
 
     const fetchRandomArticlesList = async () => {
         try {
-            const data = await getRandomArticles({});
-            console.log(data);
+            const data = await getRandomArticles();
+            // console.log(data);
             setRandomArticles(data);
         } catch (error) {
             console.log(error);

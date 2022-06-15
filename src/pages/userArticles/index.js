@@ -54,6 +54,14 @@ function Articles(props) {
 
     // console.log(articles);
 
+    const editArticle = async id => {
+        try {
+            navigate(`/editArticle/${id}`);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const { id } = useParams();
 
     useEffect(() => {
@@ -136,7 +144,12 @@ function Articles(props) {
                                             cursor: 'pointer',
                                         }}
                                     >
-                                        <EditIcon style={{ padding: '20px' }} />
+                                        <EditIcon
+                                            onClick={() =>
+                                                editArticle(article._id)
+                                            }
+                                            style={{ padding: '20px' }}
+                                        />
                                         <DeleteIcon
                                             onClick={() =>
                                                 deletingArticle(article._id)

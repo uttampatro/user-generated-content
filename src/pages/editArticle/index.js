@@ -1,40 +1,50 @@
-import { CircularProgress, TextField, Typography, Button } from '@mui/material';
+import { Button, CircularProgress, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Header from '../../components/Header';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
-    createArticle,
     generateSignedUrl,
+    getArticle,
+    updateArticle,
     uploadFile,
 } from '../../services/articleService';
 import { logout } from '../../services/authService';
-import './style.css';
 
-function Publish(props) {
+function EditArticle(props) {
     const navigate = useNavigate();
     const User = localStorage.getItem('accessToken');
     const user = User ? JSON.parse(User) : undefined;
-    const userId = user.id;
 
-    console.log(props)
+    // console.log(props);
+    const { article } = props.viewArticleReducer;
 
-    const [isCreatingArticle, setIsCreatingArticle] = useState(false);
+    const fetchArticle = async id => {
+        try {
+            const res = await getArticle(id);
+            setArticle(res);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const {
         setTitle,
         setDescription,
         setImageFlie,
         setPreviewImage,
-        imageFile,
-        previewImage,
+        updateArticleReducer,
+        setArticle,
     } = props;
+    const { title, description, imageFile, previewImage } =
+        updateArticleReducer.article;
 
-    const creatingArticle = async e => {
+    const { id } = useParams();
+
+    const [isUpdatingArticle, setIsUpdatingArticle] = useState(false);
+
+    const updatingArticle = async e => {
         e.preventDefault();
         try {
-            const { title, description, imageFile } = props;
-
             if (!title) {
                 return alert('please write title');
             }
@@ -44,27 +54,27 @@ function Publish(props) {
             if (!imageFile) {
                 return alert('please upload Image');
             }
-            
-            setIsCreatingArticle(true);
+
+            setIsUpdatingArticle(true);
             const imageUrl = await uploadThumbnail(imageFile);
 
-            const article = await createArticle({
-                title,
-                description,
-                imageUrl,
-                userId,
+            const article = await updateArticle(id, {
+                title: title,
+                description: description,
+                imageUrl: imageUrl,
             });
             if (article) {
-                alert('article created successfully');
+                alert('article updated successfully');
                 navigate(`/viewArticle/${article._id}`);
                 window.location = window.location;
             } else {
                 alert('please fill details');
             }
-            setIsCreatingArticle(false);
+            setIsUpdatingArticle(false);
         } catch (error) {
-            setIsCreatingArticle(false);
+            setIsUpdatingArticle(false);
             console.log(error);
+            alert('something went wrong');
         }
     };
 
@@ -103,6 +113,7 @@ function Publish(props) {
     };
 
     useEffect(() => {
+        fetchArticle(id);
         if (imageFile) {
             setPreviewImage(window.URL.createObjectURL(imageFile));
         }
@@ -122,11 +133,11 @@ function Publish(props) {
                 <div>
                     <div className="headerButton">
                         <button
-                        disabled={isCreatingArticle}
-                            onClick={creatingArticle}
+                            disabled={isUpdatingArticle}
+                            onClick={updatingArticle}
                             className="button1"
                         >
-                            Publish Article
+                            Update Article
                         </button>
                         <button onClick={goToUserArticles} className="button2">
                             Your Articles
@@ -155,22 +166,44 @@ function Publish(props) {
                 >
                     TITLE
                 </Typography>
-                <TextField
-                    variant="standard"
-                    required
-                    rows={1}
-                    InputProps={{ disableUnderline: true }}
-                    onChange={e => setTitle(e.target.value)}
-                    name="title"
-                    style={{
-                        width: '50%',
-                        padding: '8px',
-                        marginBottom: '20px',
-                        background: 'rgb(238, 238, 238)',
-                        border: 'none',
-                    }}
-                    maxRows={4}
-                />
+                {title ? (
+                    <TextField
+                        variant="standard"
+                        required
+                        rows={1}
+                        InputProps={{ disableUnderline: true }}
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
+                        name="title"
+                        style={{
+                            width: '50%',
+                            padding: '8px',
+                            marginBottom: '20px',
+                            background: 'rgb(238, 238, 238)',
+                            border: 'none',
+                        }}
+                        maxRows={4}
+                    />
+                ) : (
+                    <TextField
+                        variant="standard"
+                        required
+                        rows={1}
+                        InputProps={{ disableUnderline: true }}
+                        value={article.title}
+                        onChange={e => setTitle(e.target.value)}
+                        name="title"
+                        style={{
+                            width: '50%',
+                            padding: '8px',
+                            marginBottom: '20px',
+                            background: 'rgb(238, 238, 238)',
+                            border: 'none',
+                        }}
+                        maxRows={4}
+                    />
+                )}
+
                 <Typography
                     style={{
                         marginRight: '43.3%',
@@ -180,22 +213,43 @@ function Publish(props) {
                 >
                     DESCRIPTION
                 </Typography>
-                <TextField
-                    variant="standard"
-                    multiline
-                    required
-                    rows={10}
-                    InputProps={{ disableUnderline: true, border: 'none' }}
-                    onChange={e => setDescription(e.target.value)}
-                    name="description"
-                    style={{
-                        width: '50%',
-                        marginBottom: '20px',
-                        padding: '8px',
-                        background: 'rgb(238, 238, 238)',
-                    }}
-                    maxRows={4}
-                />
+                {description ? (
+                    <TextField
+                        variant="standard"
+                        multiline
+                        required
+                        rows={10}
+                        InputProps={{ disableUnderline: true, border: 'none' }}
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        name="description"
+                        style={{
+                            width: '50%',
+                            marginBottom: '20px',
+                            padding: '8px',
+                            background: 'rgb(238, 238, 238)',
+                        }}
+                        maxRows={4}
+                    />
+                ) : (
+                    <TextField
+                        variant="standard"
+                        multiline
+                        required
+                        rows={10}
+                        InputProps={{ disableUnderline: true, border: 'none' }}
+                        value={article.description}
+                        onChange={e => setDescription(e.target.value)}
+                        name="description"
+                        style={{
+                            width: '50%',
+                            marginBottom: '20px',
+                            padding: '8px',
+                            background: 'rgb(238, 238, 238)',
+                        }}
+                        maxRows={4}
+                    />
+                )}
             </div>
             <TextField
                 variant="standard"
@@ -223,7 +277,7 @@ function Publish(props) {
                     Upload Image
                 </Button>
             </label>
-            {isCreatingArticle && (
+            {isUpdatingArticle && (
                 <CircularProgress
                     size={24}
                     style={{
@@ -236,7 +290,7 @@ function Publish(props) {
                     }}
                 />
             )}
-            {previewImage && imageFile && (
+            {previewImage && imageFile ? (
                 <img
                     style={{
                         display: 'block',
@@ -248,22 +302,46 @@ function Publish(props) {
                     height="240px"
                     src={previewImage}
                 />
+            ) : (
+                <img
+                    style={{
+                        display: 'block',
+                        marginLeft: 'auto',
+                        marginTop: '15px',
+                        marginRight: 'auto',
+                    }}
+                    width="50%"
+                    height="240px"
+                    src={article.imageUrl}
+                />
             )}
         </div>
     );
 }
 
 const mapStateToProps = globalState => {
-    // console.log(globalState.createArticleReducer);
-    return globalState.createArticleReducer;
-};
-const mapDispatchToProps = dispatch => {
+    // console.log(globalState);
     return {
-        setTitle: value => dispatch({ type: 'SET_TITLE', value }),
-        setDescription: value => dispatch({ type: 'SET_DESCRIPTION', value }),
-        setImageFlie: value => dispatch({ type: 'SET_IMAGEFILE', value }),
-        setPreviewImage: value => dispatch({ type: 'SET_PREVIEWIMAGE', value }),
+        updateArticleReducer: globalState.updateArticleReducer,
+        viewArticleReducer: globalState.viewArticleReducer,
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Publish);
+const mapDispatchToProps = dispatch => {
+    return {
+        setTitle: title =>
+            dispatch({ type: 'SET_UPDATE_TITLE', payload: { title } }),
+        setDescription: description =>
+            dispatch({
+                type: 'SET_UPDATE_DESCRIPTION',
+                payload: { description },
+            }),
+        setImageFlie: imageFile =>
+            dispatch({ type: 'SET_UPDATE_IMAGEFILE', payload: { imageFile } }),
+        setPreviewImage: value => dispatch({ type: 'SET_PREVIEWIMAGE', value }),
+        setArticle: value =>
+            dispatch({ type: 'GETTING_ARTICLE_DETAILS', value }),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditArticle);

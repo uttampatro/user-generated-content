@@ -4,6 +4,7 @@ import articlesReducer from './reducer/articlesReducer';
 import viewArticleReducer from './reducer/viewArticleReducer';
 import userArticlesReducer from './reducer/userArticlesReducer';
 import createArticleReducer from './reducer/createArticleReducer';
+import updateArticleReducer from './reducer/updateArticleReducer';
 
 export default () => {
     return createStore(
@@ -13,6 +14,7 @@ export default () => {
             viewArticleReducer,
             userArticlesReducer,
             createArticleReducer,
+            updateArticleReducer
         })
     );
 };

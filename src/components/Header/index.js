@@ -57,10 +57,10 @@ function Header() {
             <div>
                 <div className="headerButton">
                     <button onClick={writeArticle} className="button1">
-                        Write
+                        Write Article
                     </button>
                     <button onClick={goToUserArticles} className="button2">
-                        Your Article
+                        Your Articles
                     </button>
                     <button
                         style={{

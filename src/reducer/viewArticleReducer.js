@@ -1,4 +1,4 @@
-const initialLoginState = {
+const initialState = {
     article: {
         _id: '',
         title: '',
@@ -12,7 +12,7 @@ const initialLoginState = {
     },
 }
 
-function viewArticleReducer(state = initialLoginState, action) {
+function viewArticleReducer(state = initialState, action) {
     switch (action.type) {
         case 'GETTING_ARTICLE_DETAILS':
             return {

@@ -46,7 +46,7 @@ function ViewArticle(props) {
                         style={{
                             marginLeft: '110px',
                             marginBottom: '5px',
-                            fontWeight: 'bold'
+                            fontWeight: 'bold',
                         }}
                     >
                         {article.title}

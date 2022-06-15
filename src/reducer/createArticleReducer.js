@@ -1,4 +1,4 @@
-const initialLoginState = {
+const initialState = {
     title: '',
     description: '',
     imageUrl: '',
@@ -6,7 +6,7 @@ const initialLoginState = {
     previewImage: null,
 };
 
-function createArticleReducer(state = initialLoginState, action) {
+function createArticleReducer(state = initialState, action) {
     switch (action.type) {
         case 'SET_TITLE':
             return {
