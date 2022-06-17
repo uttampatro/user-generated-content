@@ -45,27 +45,28 @@ function EditArticle(props) {
     const updatingArticle = async e => {
         e.preventDefault();
         try {
-            if (!title) {
-                return alert('please write title');
+            if (title == article.title) {
+                return article.title;
             }
-            if (!description) {
-                return alert('please write description');
-            }
-            if (!imageFile) {
-                return alert('please upload Image');
+            if (description == article.description) {
+                return article.description;
             }
 
             setIsUpdatingArticle(true);
-            const imageUrl = await uploadThumbnail(imageFile);
+            const imageUrl = await uploadThumbnail(imageFile)
 
-            const article = await updateArticle(id, {
+            const url = imageUrl.slice(-9).toString() == 'undefined' ? article.imageUrl : imageUrl
+            // console.log(imageUrl.slice(-9))
+            // console.log(imageUrl)
+
+            const articleData = await updateArticle(id, {
                 title: title,
                 description: description,
-                imageUrl: imageUrl,
+                imageUrl: url,
             });
-            if (article) {
+            if (articleData) {
                 alert('article updated successfully');
-                navigate(`/viewArticle/${article._id}`);
+                navigate(`/viewArticle/${articleData._id}`);
                 window.location = window.location;
             } else {
                 alert('please fill details');
@@ -79,7 +80,7 @@ function EditArticle(props) {
     };
 
     const uploadThumbnail = async imageFile => {
-        const awsSignedUrlRes = await generateSignedUrl(imageFile.name);
+        const awsSignedUrlRes = await generateSignedUrl(imageFile?.name);
         const thumbnailSignedUrl = awsSignedUrlRes.signedRequest;
         const imageUrl = awsSignedUrlRes.url;
         await uploadFile(thumbnailSignedUrl, imageFile);
@@ -166,44 +167,23 @@ function EditArticle(props) {
                 >
                     TITLE
                 </Typography>
-                {title ? (
-                    <TextField
-                        variant="standard"
-                        required
-                        rows={1}
-                        InputProps={{ disableUnderline: true }}
-                        value={title}
-                        onChange={e => setTitle(e.target.value)}
-                        name="title"
-                        style={{
-                            width: '50%',
-                            padding: '8px',
-                            marginBottom: '20px',
-                            background: 'rgb(238, 238, 238)',
-                            border: 'none',
-                        }}
-                        maxRows={4}
-                    />
-                ) : (
-                    <TextField
-                        variant="standard"
-                        required
-                        rows={1}
-                        InputProps={{ disableUnderline: true }}
-                        value={article.title}
-                        onChange={e => setTitle(e.target.value)}
-                        name="title"
-                        style={{
-                            width: '50%',
-                            padding: '8px',
-                            marginBottom: '20px',
-                            background: 'rgb(238, 238, 238)',
-                            border: 'none',
-                        }}
-                        maxRows={4}
-                    />
-                )}
-
+                <TextField
+                    variant="standard"
+                    required
+                    rows={1}
+                    InputProps={{ disableUnderline: true }}
+                    value={title || article.title}
+                    onChange={e => setTitle(e.target.value)}
+                    name="title"
+                    style={{
+                        width: '50%',
+                        padding: '8px',
+                        marginBottom: '20px',
+                        background: 'rgb(238, 238, 238)',
+                        border: 'none',
+                    }}
+                    maxRows={4}
+                />
                 <Typography
                     style={{
                         marginRight: '43.3%',
@@ -213,43 +193,23 @@ function EditArticle(props) {
                 >
                     DESCRIPTION
                 </Typography>
-                {description ? (
-                    <TextField
-                        variant="standard"
-                        multiline
-                        required
-                        rows={10}
-                        InputProps={{ disableUnderline: true, border: 'none' }}
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
-                        name="description"
-                        style={{
-                            width: '50%',
-                            marginBottom: '20px',
-                            padding: '8px',
-                            background: 'rgb(238, 238, 238)',
-                        }}
-                        maxRows={4}
-                    />
-                ) : (
-                    <TextField
-                        variant="standard"
-                        multiline
-                        required
-                        rows={10}
-                        InputProps={{ disableUnderline: true, border: 'none' }}
-                        value={article.description}
-                        onChange={e => setDescription(e.target.value)}
-                        name="description"
-                        style={{
-                            width: '50%',
-                            marginBottom: '20px',
-                            padding: '8px',
-                            background: 'rgb(238, 238, 238)',
-                        }}
-                        maxRows={4}
-                    />
-                )}
+                <TextField
+                    variant="standard"
+                    multiline
+                    required
+                    rows={10}
+                    InputProps={{ disableUnderline: true, border: 'none' }}
+                    value={description || article.description}
+                    onChange={e => setDescription(e.target.value)}
+                    name="description"
+                    style={{
+                        width: '50%',
+                        marginBottom: '20px',
+                        padding: '8px',
+                        background: 'rgb(238, 238, 238)',
+                    }}
+                    maxRows={4}
+                />
             </div>
             <TextField
                 variant="standard"
