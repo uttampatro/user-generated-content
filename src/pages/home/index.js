@@ -52,7 +52,7 @@ function Home(props) {
     useEffect(() => {
         fetchArticlesList();
         fetchRandomArticlesList();
-    }, [currentPage, articlePerPage]);
+    }, [currentPage, articlePerPage,]);
 
     return (
         <div className="homeIndex">
@@ -77,7 +77,7 @@ function Home(props) {
                             return (
                                 <div>
                                     <Link
-                                        to={`/viewArticle/${article._id}`}
+                                        to={`/viewArticle/${article?._id}`}
                                         style={{
                                             textDecoration: 'none',
                                             color: 'black',
@@ -90,7 +90,7 @@ function Home(props) {
                                                 width: '100%',
                                                 height: '250px',
                                             }}
-                                            src={article.imageUrl}
+                                            src={article?.imageUrl}
                                         />
                                         <div
                                             style={{
@@ -121,7 +121,7 @@ function Home(props) {
                                                     fontFamily: 'sans-serif',
                                                 }}
                                             >
-                                                {article.createdBy.email}{' '}
+                                                {article?.createdBy?.email}{' '}
                                                 <span
                                                     style={{
                                                         fontWeight: 'lighter',
@@ -139,7 +139,7 @@ function Home(props) {
                                                 marginTop: '10px',
                                             }}
                                         >
-                                            {article.title}
+                                            {article?.title}
                                         </Typography>
 
                                         <Typography
@@ -150,7 +150,7 @@ function Home(props) {
                                                 cursor: 'pointer',
                                             }}
                                         >
-                                            {article.description
+                                            {article?.description
                                                 .split('')
                                                 .slice(0, 300)}
                                         </Typography>
@@ -214,7 +214,7 @@ function Home(props) {
                                 return (
                                     <>
                                         <Link
-                                            to={`/viewArticle/${randomArticle._id}`}
+                                            to={`/viewArticle/${randomArticle?._id}`}
                                             style={{
                                                 textDecoration: 'none',
                                                 color: 'black',
@@ -268,8 +268,8 @@ function Home(props) {
                                                         >
                                                             {
                                                                 randomArticle
-                                                                    .createdBy
-                                                                    .email
+                                                                    ?.createdBy
+                                                                    ?.email
                                                             }{' '}
                                                         </p>
                                                     </div>
@@ -280,7 +280,7 @@ function Home(props) {
                                                             fontSize: 'medium',
                                                         }}
                                                     >
-                                                        {randomArticle.title}
+                                                        {randomArticle?.title}
                                                     </Typography>
                                                     <p
                                                         style={{
@@ -297,7 +297,7 @@ function Home(props) {
                                                         }}
                                                     >
                                                         {
-                                                            randomArticle.createdAt
+                                                            randomArticle?.createdAt
                                                         }
                                                         .
                                                         <span
@@ -322,7 +322,7 @@ function Home(props) {
                                                             height: '100px',
                                                         }}
                                                         src={
-                                                            randomArticle.imageUrl
+                                                            randomArticle?.imageUrl
                                                         }
                                                     />
                                                 </div>

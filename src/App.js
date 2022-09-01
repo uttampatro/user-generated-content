@@ -23,11 +23,20 @@ function App() {
                     ) : (
                         <>
                             <Route path="/home" element={<Home />} />
-                            <Route path="/viewArticle/:id" element={<ViewArticle />} />
-                            <Route path="/usersArticles/:id" element={<Articles />} />
+                            <Route
+                                path="/viewArticle/:id"
+                                element={<ViewArticle />}
+                            />
+                            <Route
+                                path="/usersArticles/:id"
+                                element={<Articles />}
+                            />
                             <Route path="/writeArticle" element={<Publish />} />
-                            <Route path="/editArticle/:id" element={<EditArticle />} />
-
+                            <Route
+                                path="/editArticle/:id"
+                                element={<EditArticle />}
+                            />
+                            <Route path="*" element={<Home />} />
                         </>
                     )}
                 </Routes>
